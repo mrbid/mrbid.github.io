@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>LINES GAME</title>
+    <meta name="description" content="Mobile WebApp Game">
+    <meta name="keywords" content="webapp game, lines game, game">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+    <link rel="apple-touch-icon-precomposed" href="lmg.png">
+    <meta property="og:image" content="lmg.png">
+    <meta property="twitter:image:src" content="lmg.png">
+    <script src="p5.min.js"></script>
+    <script src="p5.sound.min.js"></script>
+    <style type="text/css">
+    * { margin:0; padding:0; }
+    html, body { width:100%; height:100%; overflow:hidden; }
+    </style>
+  </head>
+  <body>
+  <img src="lmg.png" style="display:none">
+<script>
+//Roberto and Duncan Almey added pentatonic scales
+var semiToneRatio = 1.05946309436;
+var pentatonicIntervals = [3,2,2,3,2];
+var phyrgianIntervals = [1,3,1,2,1,4];
+var majorScale = [2,2,1,2,2,2,1];
+var eFreq = 329.628;
+//Fletch - Modified version of jitter demo
+var bubbles = [];
+var lines = [];
+var lsi = -1;
+var lol = 0;
+var score = 0;
+ 
+var osc = new p5.SinOsc();
+var envelope = new p5.Env();
+var delay = new p5.Delay();
+ 
+function windowResized()
+{
+    resizeCanvas(windowWidth, windowHeight);
+    setup();
+}
+ 
+function setup()
+{
+    cursor(CROSS);
+    createCanvas(windowWidth, windowHeight);
+    lsi = -1;
+    lol += (lol/4)+random(10, 30);
+    delete bubbles;
+    delete lines;
+    bubbles = [];
+    lines = [];
+    for(var i = 0; i < lol*random(1, 2); i++)
+        bubbles.push(new Jitter());
+    envelope.setADSR(0.001, 0.3, 0.1, 0.5);
+    envelope.setRange(0.3, 0);
+    osc.start();
+    osc.freq(432);
+    osc.setType('triangle');
+    envelope.play(osc, 0, 0.1);
+}
+ 
+function visibleBubbles()
+{
+    ret = 0;
+    for(var i=0; i < bubbles.length; i++)
+        if(bubbles[i].visible == 1)
+            ret++;
+    return ret;
+}
+ 
+function fRand(min, max)
+{
+    return (Math.random() * (max - min) + min).toFixed(4)
+}
+ 
+function draw()
+{
+    background(60);
+   
+    for(var i=0; i < lines.length; i++)
+        lines[i].display();
+    for(var i=0; i < bubbles.length; i++)
+    {
+        bubbles[i].speed = random(0, 2);
+        bubbles[i].move(); 
+       
+        if(bubbles[i].visible != 0)
+        {  
+            var hdam = bubbles[i].diameter;
+            dist = Math.sqrt(((bubbles[i].x-mouseX)*(bubbles[i].x-mouseX))+((bubbles[i].y-mouseY)*(bubbles[i].y-mouseY)));
+            if(dist < hdam)
+            {
+                if(lsi != -1)
+                    endLine(i);
+                else
+                    startLine(i);
+                bubbles[i].visible = 0;
+                if(lines.length > random(16, 24) && bubbles.length < 80)
+                {
+                    delete lines;
+                    lines = [];
+                    lsi=-1;
+                    osc.freq(220);
+                    osc.setType('triangle');
+                    envelope.play(osc, 0, 0.3);
+                    continue;
+                }
+
+                if(lines.length > random(16, 24) && bubbles.length >= 80)
+                {
+                    delete lines;
+                    lines = [];
+                    lsi=-1;
+                    osc.freq(bubbles[i].freq);
+                    osc.setType('triangle');
+                    envelope.setRange(0.1, 0);
+                    envelope.play(osc, 0, 0.3);
+                    delay.process(osc, .12, .7, random(600, 1800));
+                    delay.setType('pingPong');
+                    continue;
+                }
+   
+                if(bubbles.length < 80)
+                {
+                    //osc.freq((1/bubbles[i].diameter)*10000);
+                    osc.freq(bubbles[i].freq);
+                    osc.setType('sine');
+                    envelope.setRange(0.1, 0);
+                    envelope.play(osc, 0, random(0.01, 0.1));
+                    delay.process(osc, .12, .7, random(600, 1800));
+                    delay.setType('pingPong');
+                }
+            }
+           
+            bubbles[i].diameter += random(-2, 2);
+            if(bubbles[i].diameter < 20){bubbles[i].diameter = 20;}
+        }
+       
+        bubbles[i].display();
+    }
+   
+    stroke(0,0,0);
+    strokeWeight(3);
+    if(lsi > 0)
+        fill(bubbles[lsi].r, bubbles[lsi].g, bubbles[lsi].b);
+    textSize(24);
+    textStyle(BOLD);
+    vb = visibleBubbles();
+    text("Bubbles left to pop: " + vb.toString(), 30, 40);
+    textSize(14);
+    text("Max Score: " + score.toString(), 10, height-10);
+    if(vb == 0)
+        setup();
+       
+    if(bubbles.length > score)
+        score = bubbles.length;
+    if(frameRate() < 5)
+    {
+        lol = 0;
+        setup();
+    }
+}
+ 
+function startLine(i)
+{
+    lsi = i;
+}
+ 
+function endLine(i)
+{
+    if(lsi != -1)
+    {
+        lines.push(new Line(lsi, i));
+        lsi = i;
+    }
+}
+ 
+//Line Class
+function Line(x1,x2)
+{
+    this.i1 = x1;
+    this.i2 = x2;
+   
+    this.display = function()
+    {
+        strokeWeight(bubbles[this.i2].diameter/3);
+        stroke(0,0,0);
+        line(bubbles[this.i1].x, bubbles[this.i1].y, bubbles[this.i2].x, bubbles[this.i2].y);
+       
+        strokeWeight(bubbles[this.i2].diameter/4);
+        stroke(bubbles[this.i2].r, bubbles[this.i2].g, bubbles[this.i2].b);
+        line(bubbles[this.i1].x, bubbles[this.i1].y, bubbles[this.i2].x, bubbles[this.i2].y);
+    }
+}
+ 
+function chooseFrequency(intervals){
+    var noteNumber = Math.floor(Math.random() * 7);  
+    var intervalNumber = 0;
+    for(var i=0; i<noteNumber; i++){
+        intervalNumber += intervals[ i%intervals.length ];
+    }
+    return eFreq *  Math.pow(semiToneRatio, intervalNumber );
+}
+ 
+// Jitter class
+function Jitter()
+{
+    this.freq =  chooseFrequency(phyrgianIntervals);
+    this.x = random(width);
+    this.y = random(height);
+    this.diameter = 60 - this.freq/10;
+    this.speed = 9;
+    this.visible = 1;
+    this.r = 255;
+    this.g = random(0, 255);
+    this.b = random(0, 255);
+ 
+    this.move = function()
+    {
+        this.x += random(-this.speed, this.speed);
+        this.y += random(-this.speed, this.speed);
+       
+        var hdam = this.diameter/2;
+        if(this.x < hdam)
+            this.x = hdam;
+        if(this.y < hdam)
+            this.y = hdam;
+           
+        if(this.x > windowWidth-hdam)
+            this.x = windowWidth-hdam;
+        if(this.y > windowHeight-hdam)
+            this.y = windowHeight-hdam;
+    };
+ 
+    this.display = function()
+    {
+        if(this.visible == 1)
+        {
+            this.r += random(-3, 3);
+            this.g += random(-3, 3);
+            this.b += random(-3, 3);
+            strokeWeight(1);
+            stroke(0,0,0);
+            fill(this.r, this.g, this.b);
+            ellipse(this.x, this.y, this.diameter, this.diameter);
+        }
+        else
+        {
+            strokeWeight(1);
+            stroke(0,0,0);
+            fill(this.r, this.g, this.b);
+            ellipse(this.x, this.y, random(5,10), random(5,10));
+        }
+    };
+}
+</script>
+</body></html>
