@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fletch's Spiral</title>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0" />
+<script src="p5.min.js"></script>
+<style type="text/css">
+* { margin:0; padding:0; }
+html, body { width:100%; height:100%; overflow:hidden; }
+</style>
+</head>
+</body>
+</html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+	//james@voxdsp.com
+	//i could drop the constants for deg2rad conversion, no need to do this really.
+	var st = 0;
+	var hw = 0;
+	var hh = 0;
+	var rot = 0;
+	var rot2 = 0;
+	var r=0;
+	var g=0;
+	var b=0;
+	var maxsides = 256;
+	var recip_maxsides = 1 / maxsides;
+	var fr_reg = 0;
+	
+	function drawSpiral(ix, iy, radius, rotation, r, g, b)
+	{
+		strokeWeight(0);
+		stroke(0,0,0);
+		fill(r, g, b);
+		rotation *= 0.0174533;
+
+		for(var i = 1; i <= 360; i += 0.1)
+		{
+			var away = Math.pow(radius, i*0.0027);
+			var around = i * rotation;
+			rect(ix + Math.cos(around)*away, iy + Math.sin(around)*away, 1, 1);
+		}
+	}
+
+	function drawSpiralEx(ix, iy, radius, sides, coils, rotation, r, g, b)
+	{
+		var rsides = recip_maxsides;
+		var sidedeg = coils*rsides;
+		var precomp = (sidedeg + rotation) * 0.0174533;
+		var lx = ix;
+		var ly = iy;
+		
+		strokeWeight(1);
+		stroke(r,g,b);
+
+		for(var i = 1; i <= sides; i++)
+		{
+			var away = pow(radius, i*rsides);
+			var around = i * precomp;
+
+			var x = ix + cos(around) * away;
+			var y = iy + sin(around) * away;
+			
+			line(lx, ly, x, y);
+
+			lx = x;
+			ly = y;
+		}
+	}
+
+	function makePopup(url)
+	{
+		window.open(url, "1988", "width=380, height=420, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, copyhistory=no").blur();
+	}
+
+	function mouseClicked()
+	{
+		makePopup("https://github.com/mrbid");
+	}
+
+	function windowResized()
+	{
+		resizeCanvas(windowWidth, windowHeight);
+		setup();
+	}
+
+	function setup()
+	{
+		createCanvas(windowWidth, windowHeight);
+		frameRate(30);
+
+		st = millis()+22000;
+		
+		hw = width*0.5;
+		hh = height*0.5;
+	}
+
+	function draw()
+	{
+		//Clear screen
+		background(0,0,0);
+		
+		//Draw Spirals
+		if(maxsides > 200)
+		{
+			drawSpiral(hw, hh, hh, rot2, 0, 191, 255);
+			rot2 += 0.1;
+		}
+		if(millis() > st || maxsides < 250)
+		{
+			drawSpiralEx(hw, hh, hh, rot, 1000, rot, r,g,b);
+			
+			r += random(-3.75, 3.75);
+			g += random(-3.75, 3.75);
+			b += random(-3.75, 3.75);
+			if(r >= 255 || r <= 128)
+				r = 128;
+			if(g >= 255 || g <= 0)
+				g = random(0, 255);
+			if(b >= 255 || b <= 0)
+				b = random(0, 255);
+			rot += 0.07;
+		}
+		
+		//Framerate degradion
+		if(millis() > fr_reg)
+		{
+			var om = maxsides;
+
+			if(frameRate() < 25)
+				maxsides--;
+			else if(frameRate() > 25)
+				maxsides++;
+				
+			if(maxsides < 3)
+				maxsides = 3;
+			
+			if(maxsides > 256)
+				maxsides = 256;
+
+			if(om != maxsides)
+				recip_maxsides = 1 / maxsides;
+				
+			fr_reg = millis() + 1;
+		}
+		
+	}
+</script>
