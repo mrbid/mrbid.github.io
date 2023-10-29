@@ -1,18 +1,18 @@
 # PoryDrive 2.0/3.0 (more fun one)
 
 ## Keyboard Input
-* ESCAPE = Unlock Mouse
-* N = New Game and Car Color
-* W,A,S,D = Drive Car
-* Space = Brake
-* L-Shift = Boost
-* RIGHT CLICK/MOUSE4 = Zoom Snap Close/Ariel
-* Mouse Scroll = Zoom in/out
-* C = Random Car Colors
-* R = Accelerate/step DNA color peel
-* F = FPS to console
-* P = Player stats to console
-* O = Toggle auto drive
+* **ESCAPE** = Unlock Mouse
+* **N** = New Game and Car Color
+* **W,A,S,D** = Drive Car
+* **Space** = Brake
+* **L-Shift** = Boost
+* **RIGHT CLICK/MOUSE4** = Zoom Snap Close/Ariel
+* **Mouse Scroll** = Zoom in/out
+* **C** = Random Car Colors
+* **R** = Accelerate/step DNA color peel
+* **F** = FPS to console
+* **P** = Player stats to console
+* **O** = Toggle auto drive
 
 ## Mouse Input
 * RIGHT/MOUSE4 = Zoom Snap Close/Ariel
