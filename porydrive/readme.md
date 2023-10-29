@@ -2,17 +2,17 @@
 
 ## Keyboard Input
 * ESCAPE = Unlock Mouse
-* N = New Game
-* W = Drive Forward
-* A = Turn Left
-* S = Drive Backward
-* D = Turn Right
+* N = New Game and Car Color
+* W,A,S,D = Drive Car
 * Space = Brake
 * L-Shift = Boost
+* RIGHT CLICK/MOUSE4 = Zoom Snap Close/Ariel
+* Mouse Scroll = Zoom in/out
+* C = Random Car Colors
+* R = Accelerate/step DNA color peel
 * F = FPS to console
 * P = Player stats to console
 * O = Toggle auto drive
-* I = Toggle neural drive
 
 ## Mouse Input
 * RIGHT/MOUSE4 = Zoom Snap Close/Ariel
