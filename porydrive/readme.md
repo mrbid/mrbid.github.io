@@ -1,7 +1,7 @@
 # PoryDrive 2.0 (more fun one)
 
 ## Keyboard Input
-* ESCAPE = Focus/Unfocus Mouse Look
+* ESCAPE = Unlock Mouse
 * N = New Game
 * W = Drive Forward
 * A = Turn Left
