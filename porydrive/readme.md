@@ -6,8 +6,6 @@
 * **W,A,S,D** = Drive Car
 * **Space** = Brake
 * **L-Shift** = Boost
-* **RIGHT CLICK/MOUSE4** = Zoom Snap Close/Ariel
-* **Mouse Scroll** = Zoom in/out
 * **C** = Random Car Colors
 * **R** = Accelerate/step DNA color peel
 * **F** = FPS to console
