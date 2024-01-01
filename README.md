@@ -1,10 +1,11 @@
 ## WebGL Index
 * https://mrbid.github.io/
 * https://mrbid.github.io/porydrive
+* https://mrbid.github.io/tuxocide
 * https://mrbid.github.io/seapusher
 * https://mrbid.github.io/tuxpusher
 * https://mrbid.github.io/snowball
-* https://mrbid.github.io/tuxocide
+* https://mrbid.github.io/snowling
 * https://mrbid.github.io/seriousshooter
 * https://mrbid.github.io/seriousshooter/med
 * https://mrbid.github.io/seriousshooter/low
@@ -12,7 +13,6 @@
 * https://mrbid.github.io/tuxscape/med
 * https://mrbid.github.io/tuxscape/low
 * https://mrbid.github.io/aigeneratedgame
-* https://mrbid.github.io/snowling
 * https://mrbid.github.io/cubeshooter
 * https://mrbid.github.io/spaceminer
 * https://mrbid.github.io/snowboarder
