@@ -36,4 +36,4 @@
 
 ## File Index
 * https://github.com/mrbid/mrbid.github.io/raw/main/perfect_tux_andy_cuccaro.blend
-* https://github.com/mrbid/mrbid.github.io/raw/main/inter_bench_results.ods ([Interpolation Benchmark](https://gist.github.com/mrbid/33098a4dc555e8e712b6b3b24daf6502))
+* https://github.com/mrbid/mrbid.github.io/raw/main/inter_bench_results.ods 🔗[Interpolation Benchmark](https://gist.github.com/mrbid/33098a4dc555e8e712b6b3b24daf6502)
