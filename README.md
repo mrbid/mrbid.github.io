@@ -28,7 +28,7 @@
 * https://mrbid.github.io/carscan
 * https://mrbid.github.io/eris
 * https://mrbid.github.io/eris2
-* https://mrbid.github.io/eris_rot
+* https://mrbid.github.io/erisrot
 * https://mrbid.github.io/hal9000
 * https://mrbid.github.io/lines
 * https://mrbid.github.io/spiral
