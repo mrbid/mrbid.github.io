@@ -33,3 +33,7 @@
 * https://mrbid.github.io/lines
 * https://mrbid.github.io/spiral
 * https://mrbid.github.io/starspace
+
+## Files Index
+* https://github.com/mrbid/mrbid.github.io/raw/main/perfect_tux_andy_cuccaro.blend
+* https://github.com/mrbid/mrbid.github.io/raw/main/inter_bench_results.ods
