@@ -12,8 +12,6 @@
 * https://mrbid.github.io/tuxscape/med
 * https://mrbid.github.io/tuxscape/low
 * https://mrbid.github.io/aigeneratedgame
-* https://mrbid.github.io/aigeneratedgame/med
-* https://mrbid.github.io/aigeneratedgame/low
 * https://mrbid.github.io/snowling
 * https://mrbid.github.io/cubeshooter
 * https://mrbid.github.io/spaceminer
