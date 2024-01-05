@@ -1,1 +1,1 @@
-[TuxPusher.com](https://TuxPusher.com).
+[TuxPusher.com](https://TuxPusher.com)
