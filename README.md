@@ -3,6 +3,7 @@
 * https://mrbid.github.io/porydrive
 * https://mrbid.github.io/tuxocide
 * https://mrbid.github.io/seapusher
+* https://mrbid.github.io/tuxpusheraf
 * https://mrbid.github.io/tuxpusher
 * https://mrbid.github.io/snowball
 * https://mrbid.github.io/snowling
